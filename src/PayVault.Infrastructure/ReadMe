@@ -1,0 +1,6 @@
+User requests loan → enters bank account details.
+LoanEligibilityService checks if the user can get the loan.
+Loan is created and automatically approved.
+PaystackPaymentService disburses funds directly to user’s bank account.
+TransactionReference saved in loan.
+Webhook listens for repayments → ApplyRepayment updates RemainingBalance → marks loan Completed when fully paid.

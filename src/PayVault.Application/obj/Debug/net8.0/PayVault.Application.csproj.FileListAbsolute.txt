@@ -1,0 +1,15 @@
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.csproj.AssemblyReference.cache
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.AssemblyInfoInputs.cache
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.AssemblyInfo.cs
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.csproj.CoreCompileInputs.cache
+C:\Projects\PayVault\src\PayVault.Application\bin\Debug\net8.0\PayVault.Application.deps.json
+C:\Projects\PayVault\src\PayVault.Application\bin\Debug\net8.0\PayVault.Application.dll
+C:\Projects\PayVault\src\PayVault.Application\bin\Debug\net8.0\PayVault.Application.pdb
+C:\Projects\PayVault\src\PayVault.Application\bin\Debug\net8.0\PayVault.Domain.dll
+C:\Projects\PayVault\src\PayVault.Application\bin\Debug\net8.0\PayVault.Domain.pdb
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.D54043CB.Up2Date
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.dll
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\refint\PayVault.Application.dll
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\PayVault.Application.pdb
+C:\Projects\PayVault\src\PayVault.Application\obj\Debug\net8.0\ref\PayVault.Application.dll

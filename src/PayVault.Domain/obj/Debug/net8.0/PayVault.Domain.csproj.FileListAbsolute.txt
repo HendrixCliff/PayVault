@@ -1,0 +1,11 @@
+C:\Projects\PayVault\src\PayVault.Domain\bin\Debug\net8.0\PayVault.Domain.deps.json
+C:\Projects\PayVault\src\PayVault.Domain\bin\Debug\net8.0\PayVault.Domain.dll
+C:\Projects\PayVault\src\PayVault.Domain\bin\Debug\net8.0\PayVault.Domain.pdb
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\PayVault.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\PayVault.Domain.AssemblyInfoInputs.cache
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\PayVault.Domain.AssemblyInfo.cs
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\PayVault.Domain.csproj.CoreCompileInputs.cache
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\PayVault.Domain.dll
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\refint\PayVault.Domain.dll
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\PayVault.Domain.pdb
+C:\Projects\PayVault\src\PayVault.Domain\obj\Debug\net8.0\ref\PayVault.Domain.dll
