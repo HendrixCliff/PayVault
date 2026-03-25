@@ -10,7 +10,7 @@ namespace PayVault.Application.UseCases.Savings.Commands.DepositSavings
 
     public class DepositSavingsResponse
     {
-        public string PaymentReference { get; set; }
-        public string PaymentUrl { get; set; }
+        public string PaymentReference { get; set; } = string.Empty;
+        public string PaymentUrl { get; set; } = string.Empty;
     }
 }

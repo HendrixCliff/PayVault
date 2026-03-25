@@ -1,8 +1,9 @@
+using PayVault.Application.Common.Interfaces;
 
-
-namespace PayVault.Application.Interfaces.Services {
-    public interface ILoanEligibilityService
+namespace PayVault.Application.Interfaces.Services
 {
-    Task<(bool IsEligible, string Reason)> CheckEligibilityAsync(ApplicationUser user, Loan loan);
+   public interface ILoanEligibilityService
+{
+    Task<(bool IsEligible, string Reason)> IsEligibleAsync(IApplicationUser user, decimal amount);
 }
 }

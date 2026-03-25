@@ -13,8 +13,6 @@ using PayVault.Infrastructure.Services;
 using PayVault.Infrastructure.Identity;
 using PayVault.Infrastructure.Auth;
 using PayVault.Infrastructure;
-using PayVault.Infrastructure.Interfaces;
-using PayVault.Application.UseCases.Loans.Commands.ApproveLoan;
 using PayVault.Application.UseCases.Savings.Commands.CalculateInterest;
 using PayVault.Application.Interfaces.Services;
 using PayVault.Application.Interfaces.Repositories;
@@ -183,7 +181,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateLoanCommandValidator>();
+
 
 
 builder.Services.AddAutoMapper(typeof(LoanProfile));
@@ -205,7 +203,6 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 builder.Services.AddScoped<IEmailService, EmailService>(); 
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoanEligibilityService, LoanEligibilityService>();
 builder.Services.AddHttpClient<IPaymentService, PaystackPaymentService>();
 

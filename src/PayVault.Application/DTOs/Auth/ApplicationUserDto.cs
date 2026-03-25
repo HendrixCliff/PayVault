@@ -1,8 +1,6 @@
-
-
 namespace PayVault.Application.DTOs.Auth
 {
-        public class ApplicationUserDto
+    public class ApplicationUserDto
     {
         public Guid Id { get; set; }
         public string Email { get; set; } = string.Empty;
@@ -10,5 +8,10 @@ namespace PayVault.Application.DTOs.Auth
         public string LastName { get; set; } = string.Empty;
         public bool IsAccountActive { get; set; }
         public string Role { get; set; } = string.Empty;
+
+        
+        public string BankCode { get; set; } = string.Empty;
+        public string AccountNumber { get; set; } = string.Empty;
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

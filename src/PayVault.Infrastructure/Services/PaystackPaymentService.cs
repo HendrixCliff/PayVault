@@ -3,27 +3,29 @@ using PayVault.Domain.Entities;
 using PayVault.Infrastructure.Identity;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using PayVault.Application.Interfaces.Services;
+using PayVault.Application.Interfaces.Repositories;
+using Microsoft.Extensions.Configuration;
+using PayVault.Application.DTOs.Auth;
 using System.Text;
 
 namespace PayVault.Infrastructure.Services
 {
 
 
-public class PaymentService : IPaymentService
+public class PaystackPaymentService : IPaymentService
 {
     private readonly HttpClient _httpClient;
     private readonly IRepository<Loan> _loanRepository;
     private readonly IConfiguration _config;
 
-    public PaymentService(HttpClient httpClient, IRepository<Loan> loanRepository, IConfiguration config)
+   public PaystackPaymentService(HttpClient httpClient, IRepository<Loan> loanRepository, IConfiguration config)
     {
         _httpClient = httpClient;
         _loanRepository = loanRepository;
         _config = config;
     }
 
-    public async Task<string> DisburseLoanAsync(Loan loan, ApplicationUser user)
+   public async Task<string> DisburseLoanAsync(Loan loan, ApplicationUserDto user) 
     {
        
         string recipientCode = await CreateTransferRecipientAsync(user.BankCode, user.AccountNumber, user.FullName);

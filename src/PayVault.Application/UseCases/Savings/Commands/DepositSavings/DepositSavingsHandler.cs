@@ -1,31 +1,31 @@
 using MediatR;
-using PayVault.Application.Interfaces.Repositories;
+using PayVault.Application.Interfaces.Services;
 using PayVault.Domain.Entities;
 
 namespace PayVault.Application.UseCases.Savings.Commands.DepositSavings
 {
-  public class DepositSavingsHandler : IRequestHandler<DepositSavingsCommand, DepositSavingsResponse>
-{
-    private readonly ISavingsPaymentService _paymentService;
-
-    public DepositSavingsHandler(ISavingsPaymentService paymentService)
+    public class DepositSavingsHandler : IRequestHandler<DepositSavingsCommand, DepositSavingsResponse>
     {
-        _paymentService = paymentService;
-    }
+        private readonly ISavingsPaymentService _paymentService;
 
-    public async Task<DepositSavingsResponse> Handle(DepositSavingsCommand request, CancellationToken cancellationToken)
-    {
-       
-        var (reference, paymentUrl) = await _paymentService.InitializeDepositAsync(
-            await _paymentService.GetAccountByIdAsync(request.AccountId), 
-            request.Amount
-        );
-
-        return new DepositSavingsResponse
+        public DepositSavingsHandler(ISavingsPaymentService paymentService)
         {
-            PaymentReference = reference,
-            PaymentUrl = paymentUrl
-        };
+            _paymentService = paymentService;
+        }
+
+        public async Task<DepositSavingsResponse> Handle(DepositSavingsCommand request, CancellationToken cancellationToken)
+        {
+           
+            SavingsAccount account = await _paymentService.GetAccountByIdAsync(request.AccountId);
+
+            
+            (string reference, string paymentUrl) = await _paymentService.InitializeDepositAsync(account, request.Amount);
+
+            return new DepositSavingsResponse
+            {
+                PaymentReference = reference,
+                PaymentUrl = paymentUrl
+            };
+        }
     }
-}
 }

@@ -1,8 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using PayVault.Application.UseCases.Loans.Commands.ApproveLoan;
-using PayVault.Application.UseCases.Loans.Commands.RejectLoan;
 using PayVault.Application.UseCases.Loans.Queries.GetLoan; 
 using PayVault.Application.UseCases.Loans.Queries.GetLoanPayments;
 using PayVault.Application.DTOs.Loans;  

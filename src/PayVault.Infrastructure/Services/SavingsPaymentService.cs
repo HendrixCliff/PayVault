@@ -47,7 +47,16 @@ namespace PayVault.Infrastructure.Services
     return (reference, authorizationUrl);
 }
 
-        // 2. Handle Paystack webhook after successful payment
+      public async Task<SavingsAccount> GetAccountByIdAsync(Guid accountId)
+{
+    var account = (await _repository.GetAllAsync())
+                  .FirstOrDefault(a => a.Id == accountId);
+
+    if (account == null)
+        throw new InvalidOperationException("Savings account not found");
+
+    return account;
+}
         public async Task HandleWebhookAsync(string reference, decimal amount)
         {
             var account = (await _repository.GetAllAsync())

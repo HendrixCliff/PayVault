@@ -1,8 +1,10 @@
 using MediatR;
+using PayVault.Application.Common.Interfaces;
+using PayVault.Application.DTOs.Auth;     
 using PayVault.Application.Interfaces.Repositories;
 using PayVault.Application.Interfaces.Services;
 using PayVault.Domain.Entities;
-using PayVault.Infrastructure.Identity;
+using PayVault.Application.Common.Adapters;
 
 namespace PayVault.Application.UseCases.Loans.Commands.RequestLoan
 {
@@ -11,49 +13,67 @@ namespace PayVault.Application.UseCases.Loans.Commands.RequestLoan
         private readonly IRepository<Loan> _loanRepository;
         private readonly ILoanEligibilityService _eligibilityService;
         private readonly IPaymentService _paymentService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserManagementService _userService;
 
         public RequestLoanHandler(
             IRepository<Loan> loanRepository,
             ILoanEligibilityService eligibilityService,
             IPaymentService paymentService,
-            UserManager<ApplicationUser> userManager)
+            IUserManagementService userService)
         {
             _loanRepository = loanRepository;
             _eligibilityService = eligibilityService;
             _paymentService = paymentService;
-            _userManager = userManager;
+            _userService = userService;
         }
 
-        public async Task<LoanResult> Handle(RequestLoanCommand request, CancellationToken ct)
+       public async Task<LoanResult> Handle(RequestLoanCommand request, CancellationToken ct)
+{
+  
+    Guid userGuid = Guid.Parse(request.UserId);
+
+  
+    ApplicationUserDto? userDto = await _userService.GetByIdAsync(userGuid);
+    if (userDto == null)
+        throw new InvalidOperationException("User not found");
+
+    if (!userDto.IsAccountActive)
+        throw new InvalidOperationException("User account is inactive");
+
+   
+    (bool isEligible, string reason) = await _eligibilityService.IsEligibleAsync(
+    new ApplicationUserWrapper(userDto), request.Amount
+);
+
+    if (!isEligible)
+    {
+        return new LoanResult
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
-            if (user == null) throw new InvalidOperationException("User not found");
+            Message = $"Loan request denied: {reason}"
+        };
+    }
 
-            var eligibility = await _eligibilityService.IsEligibleAsync(user, request.Amount);
-            if (!eligibility.IsEligible)
-                return new LoanResult { Message = $"Loan request denied: {eligibility.Reason}" };
+ 
+    var loan = Loan.Create(userGuid, request.Amount, request.InterestRate, request.Installments);
+    loan.SetBankDetails(request.BankCode, request.AccountNumber, request.AccountName);
 
-            // Create loan
-            var loan = Loan.Create(user.Id, request.Amount, request.InterestRate, request.Installments);
-            loan.SetBankDetails(request.BankCode, request.AccountNumber, request.AccountName);
-            await _loanRepository.AddAsync(loan);
+    await _loanRepository.AddAsync(loan);
 
-            // Automatic approval
-            loan.Approve();
-            await _loanRepository.UpdateAsync(loan);
+    loan.Approve();
+    await _loanRepository.UpdateAsync(loan);
 
-            // Disburse via Paystack
-            string reference = await _paymentService.DisburseLoanAsync(loan, user);
-            loan.SetTransactionReference(reference);
-            await _loanRepository.UpdateAsync(loan);
+    
+    var reference = await _paymentService.DisburseLoanAsync(loan, userDto);
 
-            return new LoanResult
-            {
-                LoanId = loan.Id,
-                Message = "Loan approved and disbursed",
-                PaymentReference = reference
-            };
-        }
+    loan.SetTransactionReference(reference);
+    await _loanRepository.UpdateAsync(loan);
+
+    return new LoanResult
+    {
+        LoanId = loan.Id,
+        Message = "Loan approved and disbursed",
+        PaymentReference = reference
+    };
+}
     }
 }

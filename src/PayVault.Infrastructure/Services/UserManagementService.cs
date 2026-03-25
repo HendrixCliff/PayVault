@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using PayVault.Application.DTOs.Auth;
 using PayVault.Infrastructure.Identity;
+using PayVault.Application.Common.Interfaces;
 using PayVault.Application.Interfaces.Services;
 
 namespace PayVault.Infrastructure.Services
