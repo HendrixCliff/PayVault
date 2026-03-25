@@ -37,7 +37,7 @@ namespace PayVault.Infrastructure.Services
             if (amount > totalSavings * 2)
                 return (false, "Loan exceeds maximum allowed limit");
 
-            // Risk scoring (can be customized)
+          
             int internalScore = CalculateRiskScore(userLoans, totalSavings);
             int externalScore = await _creditScoreService.GetScoreAsync(user.Id);
 

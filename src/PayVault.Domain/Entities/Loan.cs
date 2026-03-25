@@ -7,7 +7,7 @@ namespace PayVault.Domain.Entities
     public class Loan
     {
         public Guid Id { get; private set; }
-        public Guid UserId { get; private set; }
+         public Guid UserId { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; private set; }
         

@@ -205,6 +205,9 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddScoped<ILoanEligibilityService, LoanEligibilityService>();
 builder.Services.AddHttpClient<IPaymentService, PaystackPaymentService>();
+builder.Services.AddScoped<ICreditScoreService, CreditScoreService>(); 
+builder.Services.AddScoped<ISavingsPaymentService, SavingsPaymentService>();
+builder.Services.AddScoped<ISavingsPaymentService, SavingsPaymentService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
     AppDomain.CurrentDomain.GetAssemblies()
