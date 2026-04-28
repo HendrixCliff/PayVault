@@ -27,6 +27,9 @@ using PayVault.Domain.Entities;
 using AutoMapper;
 using MediatR;
 using DotNetEnv;
+using HealthChecks.NpgSql;
+using Serilog;
+
 
 Env.Load();
 
@@ -82,8 +85,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Database
-// PayVault.API Program.cs - EXACTLY like this:
+
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
 var dbName = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "PayVaultDb"; 
 var dbUser = Environment.GetEnvironmentVariable("DB_USERNAME") ?? "postgres";  
@@ -188,11 +190,17 @@ builder.Services.AddAutoMapper(typeof(LoanProfile));
 
 
 builder.Services.AddHostedService<InterestCalculationService>();
-builder.Services.AddLogging(logging =>
-{
-    logging.AddConsole();
-    logging.SetMinimumLevel(LogLevel.Debug);
-});
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.Seq("http://seq:80")
+    .CreateLogger();
+
+
+builder.Host.UseSerilog();
 
 builder.Services.AddInfrastructure();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -216,6 +224,12 @@ builder.Services.AddValidatorsFromAssemblies(
     AppDomain.CurrentDomain.GetAssemblies()
 );
 
+builder.Services.AddHealthChecks()
+    .AddNpgSql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        name: "postgres",
+        timeout: TimeSpan.FromSeconds(5)
+    );
 
 var app = builder.Build();
 
@@ -289,11 +303,17 @@ app.Use(async (context, next) =>
     await next();
 });
 
+app.MapGet("/", () => {
+    Log.Information("Hello from PayVault API 🚀");
+    return "Hello World";
+});
 // app.UseMiddleware<ExceptionMiddleware>();
 // app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+app.MapHealthChecks("/health");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSerilogRequestLogging();
 app.MapControllers();
 
 app.Run();

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PayVault.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7780af5cfaca13076663da5ad6be0c7087121e53")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+354f8e792cd9faff1b2a86ec42ba6eea8d781ef0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PayVault.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PayVault.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

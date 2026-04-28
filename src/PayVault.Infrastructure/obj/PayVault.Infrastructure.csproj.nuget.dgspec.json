@@ -100,6 +100,9 @@
             "Microsoft.Extensions.Logging": "10.0.5",
             "Newtonsoft.Json": "13.0.4",
             "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
+            "Serilog": "4.3.1",
+            "Serilog.AspNetCore": "10.0.0",
+            "Serilog.Sinks.Seq": "9.0.0",
             "Swashbuckle.AspNetCore": "6.9.0",
             "System.IdentityModel.Tokens.Jwt": "7.7.1"
           },
@@ -193,6 +196,9 @@
             "Microsoft.Extensions.Logging": "10.0.5",
             "Newtonsoft.Json": "13.0.4",
             "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
+            "Serilog": "4.3.1",
+            "Serilog.AspNetCore": "10.0.0",
+            "Serilog.Sinks.Seq": "9.0.0",
             "Swashbuckle.AspNetCore": "6.9.0",
             "System.IdentityModel.Tokens.Jwt": "7.7.1"
           },
@@ -344,6 +350,9 @@
             "Microsoft.Extensions.Logging": "10.0.5",
             "Newtonsoft.Json": "13.0.4",
             "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
+            "Serilog": "4.3.1",
+            "Serilog.AspNetCore": "10.0.0",
+            "Serilog.Sinks.Seq": "9.0.0",
             "Swashbuckle.AspNetCore": "6.9.0",
             "System.IdentityModel.Tokens.Jwt": "7.7.1"
           },

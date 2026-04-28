@@ -1,0 +1,42 @@
+cd ~
+rsync -av --exclude='.git' /mnt/c/Projects/PayVault/ ./PayVault
+
+
+cd out
+dotnet PayVault.API.dll
+
+
+dism.exe /online /enable-feature /featurename:Microsoft-Hyper-V /all /norestart
+
+
+docker run -d \
+  -p 5341:80 \
+  -e ACCEPT_EULA=Y \
+  -e SEQ_FIRSTRUN_ADMINPASSWORD="MyStrongPassword123!" \
+  -v seq-data:/data \
+  --name seq \
+  datalust/seq
+
+docker start seq
+
+
+docker rm -f seq; docker run -d -p 5341:80 -e ACCEPT_EULA=Y -e SEQ_FIRSTRUN_ADMINPASSWORD="MyStrongPassword123!" -v seq-data:/data --name seq datalust/seq
+
+
+$env:HTTP_PROXY=""
+$env:HTTPS_PROXY=""
+
+echo $env:HTTP_PROXY
+echo $env:HTTPS_PROXY
+
+ netstat -ano | findstr :5000
+
+ taskkill /PID 11356 /F
+
+ Those logs are not “just logs” — they are:
+
+Your debugging system
+Your performance profiler
+Your production monitoring foundation
+
+docker compose up --build

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "Starting deployment..."
+
+echo "Building app..."
+dotnet build
+
+if [ $? -ne 0 ]; then
+    echo "Build failed ❌"
+    exit 1
+fi
+
+echo "Publishing app..."
+dotnet publish -c Release -o out
+
+if [ $? -ne 0 ]; then
+    echo "Publish failed ❌"
+    exit 1
+fi
+
+echo "Running app..."
+cd out
+dotnet DevOpsApp.dll
+chmod +x deploy.sh
+./deploy.sh
+
