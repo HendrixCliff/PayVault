@@ -231,6 +231,11 @@ builder.Services.AddHealthChecks()
         timeout: TimeSpan.FromSeconds(5)
     );
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "redis:6379";
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -311,6 +316,8 @@ app.MapGet("/", () => {
 // app.UseMiddleware<GlobalExceptionMiddleware>();
 //app.UseHttpsRedirection();
 app.MapHealthChecks("/health");
+app.UseHttpMetrics();
+app.MapMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSerilogRequestLogging();
