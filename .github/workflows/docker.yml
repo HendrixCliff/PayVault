@@ -1,0 +1,36 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Run Tests
+        run: dotnet test --no-build
+
+      - name: Build Docker Image
+        run: docker build -t payvault-api .
+
+      - name: Push to Docker Hub
+        run: |
+          docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASS }}"
+          docker tag payvault-api "${{ secrets.DOCKER_USER }}/payvault-api:latest"
+          docker push "${{ secrets.DOCKER_USER }}/payvault-api:latest"
